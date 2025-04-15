@@ -22,14 +22,18 @@ const OurTeam = () => {
     };
   }, [vantaEffect]);
   return (
-    <div ref={myRef} className="w-full h-auto min-h-screen p-20">
+    <div ref={myRef} className="w-full h-auto min-h-screen px-5 py-10 md:p-20">
       <div className="inset-0 top-0 left-0 absolute bg-black/40"></div>
       <h1 className="text-5xl text-white text-center ">Our Team</h1>
-      <div className="flex justify-center items-center mt-24 gap-20 md:gap-10 flex-wrap">
-        <MemberCard image={Sumit} name={"Sumit Kumar"} />
-        <MemberCard image={Rohnish} name={"Rohnish Srivastava"} />
-        <MemberCard image={Harsh} name={"Harsh Dixit"} />
-        <MemberCard image={Akarsh} name={"Aakarsh Kashyap"} />
+      <div className="flex flex-col justify-center items-center mt-24 gap-32 md:gap-20 flex-wrap">
+        <div className="flex md:flex-row flex-col gap-20">
+          <MemberCard image={Sumit} name={"Sumit Kumar"} />
+          <MemberCard image={Rohnish} name={"Rohnish Srivastava"} />
+        </div>
+        <div className="flex gap-20 md:flex-row flex-col">
+          <MemberCard image={Harsh} name={"Harsh Dixit"} />
+          <MemberCard image={Akarsh} name={"Aakarsh Kashyap"} />
+        </div>
       </div>
     </div>
   );
