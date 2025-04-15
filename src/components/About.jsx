@@ -5,12 +5,12 @@ import bg from "../assets/Bg-2.jpg";
 const About = () => {
   return (
     <div
-      className="w-full h-auto min-h-screen md:h-screen bg-cover px-5 md:px-20 py-10 md:py-20 flex md:flex-row flex-col"
+      className="w-full h-auto min-h-screen bg-cover px-5 md:px-20 py-10 md:py-20 flex md:flex-row flex-col"
       style={{ backgroundImage: `url(${bg})` }}>
       <div className="w-full md:w-1/2 h-1/2">
         <img src={bubble}></img>
       </div>
-      <div className="w-full md:w-1/2 min-h-screen text-white px-5 md:px-10">
+      <div className="w-full md:w-1/2 min-h-screen h-auto text-white px-5 md:px-10">
         <h1 className="text-5xl font-[montserrat] leading-tight">
           About <br /> HearWear
         </h1>
