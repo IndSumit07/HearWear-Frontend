@@ -89,7 +89,7 @@ const App = () => {
       {[...Array(21)].map((_, i) => (
         <div
           key={i}
-          className="circle"
+          className="hidden lg:flex circle"
           ref={(el) => (circlesRef.current[i] = el)}
         />
       ))}

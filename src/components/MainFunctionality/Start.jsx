@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Halo from "vanta/dist/vanta.halo.min";
+import Globe from "vanta/dist/vanta.globe.min";
 
 const Start = () => {
   const [vantaEffect, setVantaEffect] = useState(null);
@@ -7,7 +7,7 @@ const Start = () => {
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(
-        Halo({
+        Globe({
           el: myRef.current,
         })
       );
