@@ -34,7 +34,7 @@ const Start = () => {
         </h1>
         <div
           onClick={toggleButton}
-          className="w-[100px] h-[50px] rounded-full bg-white relative overflow-hidden border-white border">
+          className="w-[100px] h-[50px] rounded-full bg-white relative overflow-hidden border-white border cursor-pointer">
           <div
             onClick={toggleButton}
             className={`w-[50px] h-[50px] rounded-full bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 absolute top-0 ${
