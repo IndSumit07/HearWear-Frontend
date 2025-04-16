@@ -7,10 +7,14 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Nova Square";
+  cursor: none;
 }
 html,
 body {
   height: 100%;
   width: 100%;
+}
+
+button {
   cursor: none;
 }
