@@ -1,6 +1,7 @@
 import React from "react";
 import bubble from "../assets/BuggleGif.gif";
 import bg from "../assets/Bg-2.jpg";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -28,9 +29,11 @@ const About = () => {
           powerful solution for inclusive communication in today’s connected
           world.
         </p>
-        <button className="mt-5 bg-[#D73CBE] px-6 py-8 rounded-full text-black text-2xl font-medium hover:scale-90 transition-all duration-300">
-          CLICK HERE TO START
-        </button>
+        <Link to="/start">
+          <button className="mt-5 bg-[#D73CBE] px-6 py-8 rounded-full text-black text-2xl font-medium hover:scale-90 transition-all duration-300">
+            CLICK HERE TO START
+          </button>
+        </Link>
       </div>
     </div>
   );
