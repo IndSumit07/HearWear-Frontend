@@ -32,7 +32,7 @@ const Hero = () => {
           <span>LIVE TRANSLATER</span>
         </h1>
       </div>
-      <div className="text-white text-lg md:text-2xl font-[montserrat] mt-6  w-[250px]  md:w-[500px]">
+      <div className="text-white text-xl md:text-2xl font-[montserrat] mt-6  w-[250px]  md:w-[500px]">
         HearWear is a smart in-ear device that functions as both a hearing aid
         for partial deafness and a real-time language translator. It enhances
         sound clarity and breaks language barriers, offering a seamless and
