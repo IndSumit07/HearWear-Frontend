@@ -40,7 +40,7 @@ const Hero = () => {
           <br />
           <span>LIVE TRANSLATER</span>
           <br />
-          <span>AND TRNASCRIPTOR</span>
+          <span>AND TRANSCRIPTOR</span>
         </h1>
       </div>
       <div className="text-white text-xl md:text-2xl font-[montserrat] mt-6  w-[250px]  md:w-[500px]">
