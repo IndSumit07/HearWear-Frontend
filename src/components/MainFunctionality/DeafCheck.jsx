@@ -2,10 +2,10 @@ import React from "react";
 import hearwear from "../../assets/HearWear Logo.png";
 import QuestionCard from "../Cards/QuestionCard";
 import audio1 from "../../assets/Sounds/500.mp3";
-import audio2 from "../../assets/Sounds/750.mp3";
-import audio3 from "../../assets/Sounds/1000.mp3";
-import audio4 from "../../assets/Sounds/1500.mp3";
-import audio5 from "../../assets/Sounds/2000.mp3";
+import audio2 from "../../assets/Sounds/1000.mp3";
+import audio3 from "../../assets/Sounds/1500.mp3";
+import audio4 from "../../assets/Sounds/2000.mp3";
+import audio5 from "../../assets/Sounds/4000.mp3";
 import { Link } from "react-router-dom";
 const DeafCheck = () => {
   const sounds = [
