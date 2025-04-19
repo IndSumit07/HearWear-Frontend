@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Transcript = () => {
+const Transcript = ({ isOn, isMicOn }) => {
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef(null);
   const isListeningRef = useRef(false); // Track listening state
@@ -52,6 +52,7 @@ const Transcript = () => {
     isListeningRef.current = false;
     recognitionRef.current?.stop();
   };
+  isOn && isMicOn ? startListening : stopListening;
 
   return (
     <div className="p-4 w-[300px] mx-auto z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
@@ -61,18 +62,7 @@ const Transcript = () => {
       <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300 ">
         <p>{transcript}</p>
       </div>
-      <div className="mt-4 flex gap-2">
-        <button
-          onClick={startListening}
-          className="px-4 py-2 bg-green-500 text-white rounded">
-          Start
-        </button>
-        <button
-          onClick={stopListening}
-          className="px-4 py-2 bg-red-500 text-white rounded">
-          Stop
-        </button>
-      </div>
+      <div className="mt-4 flex gap-2"></div>
     </div>
   );
 };

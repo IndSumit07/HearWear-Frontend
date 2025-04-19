@@ -90,7 +90,11 @@ const Start = () => {
             } transition-all duration-300 pointer cursor-none`}></div>
         </div>
       </div>
-      <div>{isTranscriptOn && <Transcript />}</div>
+      <div>
+        {isTranscriptOn && (
+          <Transcript isOn={isTranscriptOn} isMicOn={isMicOn} />
+        )}
+      </div>
       <div className="z-50 flex md:flex-row flex-col gap-5 justify-center items-center py-10">
         <h1 className=" text-2xl md:text-3xl text-white">
           Language Translation
