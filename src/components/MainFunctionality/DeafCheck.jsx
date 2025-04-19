@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import hearwear from "../../assets/HearWear Logo.png";
 import QuestionCard from "../Cards/QuestionCard";
 import audio1 from "../../assets/Sounds/500.mp3";
@@ -30,6 +30,10 @@ const DeafCheck = () => {
       audio: audio5,
     },
   ];
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="w-full min-h-screen h-auto bg-gradient-to-l from-[#17174a] to to-[#4b025d] md:py-20 md:px-40 px-5 py-10 placeholder-opacity-100">
       <img className="w-[300px]" src={hearwear} alt="HearWear" />
