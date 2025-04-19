@@ -96,7 +96,7 @@ const DeafCheck = () => {
         ))}
       </div>
 
-      <div className="px-20 py-10 flex flex-col md:justify-start justify-center gap-4">
+      <div className="md:px-20 py-10 flex flex-col md:justify-start justify-center gap-4">
         {noFreqs.length > 0 ? (
           <div className="text-white text-xl space-y-2">
             <p>
