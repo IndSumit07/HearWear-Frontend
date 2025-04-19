@@ -36,20 +36,44 @@ const DeafCheck = () => {
 
   const getDeafnessPercentage = (selectedFreqs) => {
     const sorted = [...selectedFreqs].sort((a, b) => a - b);
-    const freqStr = sorted.join("+");
+    const freqStr = sorted.join(",");
 
     const mappings = {
       250: 10,
-      "500+1000": 30,
-      "500+1000+2000": 50,
-      "1000+2000+4000": 80,
-      "500+1000+1500+2000+4000": 100,
-      "500+4000": 40,
+      500: 15,
       1000: 25,
-      "": 0, // If no "No" answers = no deafness
+      2000: 25,
+      4000: 25,
+      "250,500": 25,
+      "250,1000": 35,
+      "250,2000": 35,
+      "250,4000": 35,
+      "500,1000": 40,
+      "500,2000": 40,
+      "500,4000": 40,
+      "1000,2000": 50,
+      "1000,4000": 50,
+      "2000,4000": 50,
+      "250,500,1000": 50,
+      "250,500,2000": 50,
+      "250,500,4000": 50,
+      "250,1000,2000": 60,
+      "250,1000,4000": 60,
+      "250,2000,4000": 60,
+      "500,1000,2000": 65,
+      "500,1000,4000": 65,
+      "500,2000,4000": 65,
+      "1000,2000,4000": 75,
+      "250,500,1000,2000": 75,
+      "250,500,1000,4000": 75,
+      "250,500,2000,4000": 75,
+      "250,1000,2000,4000": 85,
+      "500,1000,2000,4000": 90,
+      "250,500,1000,2000,4000": 100,
+      "": 0,
     };
 
-    return mappings[freqStr] || 30; // default if combination not found
+    return mappings[freqStr] || 0;
   };
 
   return (
@@ -73,7 +97,7 @@ const DeafCheck = () => {
       </div>
 
       <div className="px-20 py-10 flex flex-col md:justify-start justify-center gap-4">
-        {noFreqs.length > 0 && (
+        {noFreqs.length > 0 ? (
           <div className="text-white text-xl space-y-2">
             <p>
               You responded "No" to frequencies:{" "}
@@ -88,11 +112,25 @@ const DeafCheck = () => {
               </span>
             </p>
           </div>
+        ) : (
+          <div className="text-white text-xl space-y-2">
+            <p>
+              You responded "Yes" to all frequencies.{" "}
+              <span className="font-bold text-green-300">
+                No Partial Deafness Detected ✅
+              </span>
+            </p>
+            <p>
+              Partial Deafness Detection:{" "}
+              <span className="font-bold text-yellow-400">0%</span>
+            </p>
+          </div>
         )}
+
         <Link
           to="/start"
           className="text-lg bg-green-600 px-6 py-3 rounded-full md:min-w-[420px] transition-all duration-300 hover:scale-95 text-center">
-          Submit
+          Click Here to Continue
         </Link>
       </div>
     </div>

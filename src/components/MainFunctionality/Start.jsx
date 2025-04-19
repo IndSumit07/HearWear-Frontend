@@ -5,6 +5,7 @@ const Start = () => {
   const [isMicOn, setIsMicOn] = useState(false);
   const [isTranscriptOn, setIsTranscriptOn] = useState(false);
   const [isTranslatorOn, setIsTranslatorOn] = useState(false);
+  const [percentage, setPercentage] = useState(0);
 
   const audioContextRef = useRef(null);
   const streamRef = useRef(null);
@@ -43,7 +44,6 @@ const Start = () => {
     }
   };
 
-  // Transcript & Translation
   const [transcript, setTranscript] = useState("");
   const [hindiTranscript, setHindiTranscript] = useState("");
   const recognitionRef = useRef(null);
@@ -69,7 +69,6 @@ const Start = () => {
   useEffect(() => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
-
     if (!SpeechRecognition) {
       alert("Your browser does not support Speech Recognition. Try Chrome.");
       return;
@@ -130,41 +129,65 @@ const Start = () => {
     }
   }, [isTranscriptOn, isMicOn]);
 
-  // Vanta Background
   const [vantaEffect, setVantaEffect] = useState(null);
   const myRef = useRef(null);
   useEffect(() => {
     if (!vantaEffect) {
-      setVantaEffect(
-        Globe({
-          el: myRef.current,
-        })
-      );
+      setVantaEffect(Globe({ el: myRef.current }));
     }
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);
 
-  // Toggle switches
   const toggleTranslator = () => setIsTranslatorOn(!isTranslatorOn);
   const toggleTranscript = () => setIsTranscriptOn(!isTranscriptOn);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Function to map percentage to deafness levels
+  const getDeafnessLevel = (percentage) => {
+    if (percentage < 20) return "Normal";
+    if (percentage < 50) return "Mild Deafness";
+    if (percentage < 80) return "Moderate Deafness";
+    return "Severe Deafness";
+  };
+
+  const handleSliderChange = (e) => {
+    const newPercentage = parseInt(e.target.value);
+    setPercentage(newPercentage);
+  };
+
   return (
     <div
       className="w-full h-auto min-h-screen flex justify-center items-center flex-col gap-16 py-28 relative z-10"
       ref={myRef}>
       <div className="absolute inset-0 bg-black/60 z-20"></div>
-
+      {/* Percentage Slider */}
+      <div className="z-50 p-4 w-[300px] md:w-[350px] mx-auto bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
+        <h1 className="text-xl text-white font-bold mb-2">
+          🔊 Deafness Detection
+        </h1>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={percentage}
+          onChange={handleSliderChange}
+          className="w-full"
+        />
+        <p className="text-white mt-2 text-center">{percentage}%</p>
+        <p className="text-white text-center">{getDeafnessLevel(percentage)}</p>
+      </div>
       <button
         onClick={handleToggle}
         className="z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 text-2xl md:text-3xl font-bold text-white rounded-full py-16 px-5 transition-all duration-300 hover:scale-95">
         CLICK HERE TO START <br /> HEAR AID
       </button>
 
-      {/* Transcript Toggle */}
+      {/* Transcript UI */}
       <div className="z-50 flex md:flex-row flex-col gap-5 justify-center items-center py-10">
         <h1 className="text-2xl md:text-3xl text-white">
           Real Time Transcript
@@ -179,7 +202,6 @@ const Start = () => {
         </div>
       </div>
 
-      {/* Transcript Display */}
       {isTranscriptOn && (
         <div className="z-50 p-4 w-[350px] mx-auto bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
           <h1 className="text-xl text-white font-bold mb-2">
@@ -218,14 +240,12 @@ const Start = () => {
         </div>
       </div>
 
-      {/* Translator UI Placeholder */}
       {isTranslatorOn && (
         <div className="z-50 p-4 w-[350px] mx-auto bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
           <h1 className="text-xl text-white font-bold mb-2">अनुवाद (Hindi)</h1>
           <div className="bg-gray-100 p-3 rounded h-32 overflow-y-auto border border-gray-300 text-sm">
             <p>{hindiTranscript}</p>
           </div>
-
           <div className="mt-4 flex gap-2 justify-center">
             <button
               onClick={startListening}
