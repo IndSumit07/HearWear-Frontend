@@ -194,7 +194,7 @@ const Start = () => {
       <button
         onClick={handleToggle}
         className="z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 text-2xl md:text-3xl font-bold text-white rounded-full py-16 px-5 transition-all duration-300 hover:scale-95">
-        CLICK HERE TO START <br /> HEAR AID
+        CLICK HERE TO START <br /> HEARING AID
       </button>
 
       {/* Transcript UI */}
@@ -252,7 +252,9 @@ const Start = () => {
 
       {isTranslatorOn && (
         <div className="z-50 p-4 w-[350px] mx-auto bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
-          <h1 className="text-xl text-white font-bold mb-2">अनुवाद (Hindi)</h1>
+          <h1 className="text-xl text-white font-bold mb-2">
+            Hindi Translation
+          </h1>
           <div className="bg-gray-100 p-3 rounded h-32 overflow-y-auto border border-gray-300 text-sm">
             <p>{hindiTranscript}</p>
           </div>
