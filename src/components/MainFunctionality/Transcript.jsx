@@ -1,12 +1,11 @@
-// Transcript.jsx
 import React, { useEffect, useRef, useState } from "react";
 
 const Transcript = () => {
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef(null);
+  const isListeningRef = useRef(false); // Track listening state
 
   useEffect(() => {
-    // Check if browser supports Web Speech API
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -26,21 +25,31 @@ const Transcript = () => {
     };
 
     recognition.onerror = (event) => {
-      console.error("Speech recognition error", event.error);
+      console.error("Speech recognition error:", event.error);
+    };
+
+    recognition.onend = () => {
+      // Automatically restart if still supposed to be listening
+      if (isListeningRef.current) {
+        recognition.start();
+      }
     };
 
     recognitionRef.current = recognition;
 
     return () => {
       recognition.stop();
+      isListeningRef.current = false;
     };
   }, []);
 
   const startListening = () => {
+    isListeningRef.current = true;
     recognitionRef.current?.start();
   };
 
   const stopListening = () => {
+    isListeningRef.current = false;
     recognitionRef.current?.stop();
   };
 
@@ -49,7 +58,7 @@ const Transcript = () => {
       <h1 className="text-xl text-white font-bold mb-4">
         Live English Transcript
       </h1>
-      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300">
+      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300 ">
         <p>{transcript}</p>
       </div>
       <div className="mt-4 flex gap-2">
