@@ -24,7 +24,12 @@ const Start = () => {
     if (!isMicOn) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
+          audio: {
+            noiseSuppression: true,
+            echoCancellation: true,
+            autoGainControl: true,
+            sampleRate: 44100, // Improved audio quality
+          },
         });
         const audioContext = new (window.AudioContext ||
           window.webkitAudioContext)();
