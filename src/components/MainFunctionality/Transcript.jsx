@@ -52,7 +52,13 @@ const Transcript = ({ isOn, isMicOn }) => {
     isListeningRef.current = false;
     recognitionRef.current?.stop();
   };
-  isOn && isMicOn ? startListening : stopListening;
+  useEffect(() => {
+    if (isOn && isMicOn) {
+      startListening();
+    } else {
+      stopListening();
+    }
+  }, [isOn, isMicOn]);
 
   return (
     <div className="p-4 w-[300px] mx-auto z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
