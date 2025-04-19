@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 const Transcript = ({ isOn, isMicOn }) => {
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef(null);
-  const isListeningRef = useRef(false);
+  const isListeningRef = useRef(false); // Track listening state
 
   useEffect(() => {
     const SpeechRecognition =
@@ -21,7 +21,6 @@ const Transcript = ({ isOn, isMicOn }) => {
     recognition.onresult = (event) => {
       const current = event.resultIndex;
       const result = event.results[current][0].transcript;
-      console.log("Heard:", result);
       setTranscript((prev) => prev + " " + result);
     };
 
@@ -30,6 +29,7 @@ const Transcript = ({ isOn, isMicOn }) => {
     };
 
     recognition.onend = () => {
+      // Automatically restart if still supposed to be listening
       if (isListeningRef.current) {
         recognition.start();
       }
@@ -44,37 +44,35 @@ const Transcript = ({ isOn, isMicOn }) => {
   }, []);
 
   const startListening = () => {
-    if (!recognitionRef.current) return;
-    try {
-      recognitionRef.current.start();
-      isListeningRef.current = true;
-    } catch (e) {
-      console.warn("Start failed:", e.message);
-    }
+    isListeningRef.current = true;
+    recognitionRef.current?.start();
   };
 
   const stopListening = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-      isListeningRef.current = false;
-    }
+    isListeningRef.current = false;
+    recognitionRef.current?.stop();
   };
-
-  useEffect(() => {
-    if (isOn && isMicOn) {
-      startListening();
-    } else {
-      stopListening();
-    }
-  }, [isOn, isMicOn]);
+  isOn && isMicOn ? startListening : stopListening;
 
   return (
     <div className="p-4 w-[300px] mx-auto z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
       <h1 className="text-xl text-white font-bold mb-4">
         Live English Transcript
       </h1>
-      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300">
+      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300 ">
         <p>{transcript}</p>
+      </div>
+      <div className="mt-4 flex gap-2">
+        <button
+          onClick={startListening}
+          className="px-4 py-2 bg-green-500 text-white rounded">
+          Start
+        </button>
+        <button
+          onClick={stopListening}
+          className="px-4 py-2 bg-red-500 text-white rounded">
+          Stop
+        </button>
       </div>
     </div>
   );
