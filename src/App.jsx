@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Start from "./components/MainFunctionality/Start";
 import "./index.css";
 import Transcript from "./components/MainFunctionality/Transcript";
+import DeafCheck from "./components/MainFunctionality/DeafCheck";
 
 const App = () => {
   const coords = useRef({ x: 0, y: 0 });
@@ -97,6 +98,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/start" element={<Start />} />
+        <Route path="/check" element={<DeafCheck />} />
       </Routes>
     </div>
   );
