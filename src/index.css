@@ -8,6 +8,7 @@
   box-sizing: border-box;
   font-family: "Nova Square";
   cursor: none;
+  scroll-behavior: smooth;
 }
 html,
 body {

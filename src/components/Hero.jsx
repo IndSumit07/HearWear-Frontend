@@ -18,10 +18,19 @@ const Hero = () => {
     };
   }, [vantaEffect]);
   return (
-    <div ref={myRef} className="w-full h-screen px-5 md:px-40 py-10 md:py-20">
+    <div
+      ref={myRef}
+      className="relative w-full h-screen px-5 md:px-40 py-10 md:py-20 z-50">
       <div className="inset-0 top-0 left-0 absolute bg-black/50"></div>
       <div>
         <img className="w-[300px] z-50" src={hearwear} alt="HearWear" />
+      </div>
+      <div>
+        <a href="#about">
+          <button className="text-black absolute text-xl right-0 -top-20 bg-white rounded-full px-6 py-4 ">
+            Get Started
+          </button>
+        </a>
       </div>
       <div>
         <h1 className="text-white text-3xl md:text-5xl tracking-widest font-bold mt-5">
