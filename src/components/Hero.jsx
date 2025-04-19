@@ -25,13 +25,6 @@ const Hero = () => {
       <div>
         <img className="w-[300px] z-50" src={hearwear} alt="HearWear" />
       </div>
-      <div className="hidden md:flex">
-        <a href="#about">
-          <button className="text-black absolute text-xl right-0 -top-20 bg-white rounded-full px-6 py-4 ">
-            Get Started
-          </button>
-        </a>
-      </div>
       <div>
         <h1 className="text-white text-3xl md:text-5xl tracking-widest font-bold mt-5">
           <span>HEARING AID FOR</span>

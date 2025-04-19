@@ -149,7 +149,9 @@ const Start = () => {
   // Toggle switches
   const toggleTranslator = () => setIsTranslatorOn(!isTranslatorOn);
   const toggleTranscript = () => setIsTranscriptOn(!isTranscriptOn);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       className="w-full h-auto min-h-screen flex justify-center items-center flex-col gap-16 py-28 relative z-10"
