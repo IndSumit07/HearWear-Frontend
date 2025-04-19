@@ -5,11 +5,20 @@ const Start = () => {
   const [isMicOn, setIsMicOn] = useState(false);
   const [isTranscriptOn, setIsTranscriptOn] = useState(false);
   const [isTranslatorOn, setIsTranslatorOn] = useState(false);
-  const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(50); // Default volume at 50%
 
   const audioContextRef = useRef(null);
   const streamRef = useRef(null);
   const sourceRef = useRef(null);
+  const gainNodeRef = useRef(null); // To control volume
+
+  const [transcript, setTranscript] = useState("");
+  const [hindiTranscript, setHindiTranscript] = useState("");
+  const recognitionRef = useRef(null);
+  const isListeningRef = useRef(false);
+
+  const myRef = useRef(null);
+  const [vantaEffect, setVantaEffect] = useState(null);
 
   const handleToggle = async () => {
     if (!isMicOn) {
@@ -20,11 +29,15 @@ const Start = () => {
         const audioContext = new (window.AudioContext ||
           window.webkitAudioContext)();
         const source = audioContext.createMediaStreamSource(stream);
-        source.connect(audioContext.destination);
+        const gainNode = audioContext.createGain(); // Create Gain Node for volume control
+
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination); // Connect Gain Node to audio output
 
         audioContextRef.current = audioContext;
         streamRef.current = stream;
         sourceRef.current = source;
+        gainNodeRef.current = gainNode;
 
         setIsMicOn(true);
         console.log("Mic started");
@@ -44,10 +57,16 @@ const Start = () => {
     }
   };
 
-  const [transcript, setTranscript] = useState("");
-  const [hindiTranscript, setHindiTranscript] = useState("");
-  const recognitionRef = useRef(null);
-  const isListeningRef = useRef(false);
+  const handleSliderChange = (e) => {
+    const volume = parseFloat(e.target.value) / 100;
+    setPercentage(e.target.value);
+    if (gainNodeRef.current) {
+      gainNodeRef.current.gain.setValueAtTime(
+        volume,
+        audioContextRef.current.currentTime
+      ); // Set volume
+    }
+  };
 
   const startListening = () => {
     if (!recognitionRef.current) return;
@@ -63,6 +82,21 @@ const Start = () => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
       isListeningRef.current = false;
+    }
+  };
+
+  const translateToHindi = async (text) => {
+    try {
+      const res = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(
+          text
+        )}`
+      );
+      const data = await res.json();
+      const translated = data[0].map((t) => t[0]).join("");
+      setHindiTranscript(translated);
+    } catch (err) {
+      console.error("Translation failed:", err);
     }
   };
 
@@ -106,31 +140,6 @@ const Start = () => {
     };
   }, []);
 
-  const translateToHindi = async (text) => {
-    try {
-      const res = await fetch(
-        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(
-          text
-        )}`
-      );
-      const data = await res.json();
-      const translated = data[0].map((t) => t[0]).join("");
-      setHindiTranscript(translated);
-    } catch (err) {
-      console.error("Translation failed:", err);
-    }
-  };
-
-  useEffect(() => {
-    if (isTranscriptOn && isMicOn) {
-      startListening();
-    } else {
-      stopListening();
-    }
-  }, [isTranscriptOn, isMicOn]);
-
-  const [vantaEffect, setVantaEffect] = useState(null);
-  const myRef = useRef(null);
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(Globe({ el: myRef.current }));
@@ -155,21 +164,20 @@ const Start = () => {
     return "Severe Deafness";
   };
 
-  const handleSliderChange = (e) => {
-    const newPercentage = parseInt(e.target.value);
-    setPercentage(newPercentage);
-  };
-
   return (
     <div
       className="w-full h-auto min-h-screen flex justify-center items-center flex-col gap-16 py-28 relative z-10"
       ref={myRef}>
       <div className="absolute inset-0 bg-black/60 z-20"></div>
-      {/* Percentage Slider */}
+
+      {/* Volume Control */}
       <div className="z-50 p-4 w-[300px] md:w-[350px] mx-auto bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
         <h1 className="text-xl text-white font-bold mb-2">
-          🔊 Deafness Detection
+          🔊 Amplification Control
         </h1>
+        <p className="text-white text-center mb-2">
+          Adjust the Amplification level:
+        </p>
         <input
           type="range"
           min="0"
@@ -181,6 +189,8 @@ const Start = () => {
         <p className="text-white mt-2 text-center">{percentage}%</p>
         <p className="text-white text-center">{getDeafnessLevel(percentage)}</p>
       </div>
+
+      {/* Mic Control */}
       <button
         onClick={handleToggle}
         className="z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 text-2xl md:text-3xl font-bold text-white rounded-full py-16 px-5 transition-all duration-300 hover:scale-95">
