@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <div
       ref={myRef}
-      className="relative w-full min-h-screen h-auto px-5 md:px-40 py-10 md:py-20 z-50">
+      className="relative w-full min-h-screen h-auto px-5 md:px-40 py-10 md:py-12 z-50">
       <div className="inset-0 top-0 left-0 absolute bg-black/50"></div>
       <div>
         <img className="w-[300px] z-50" src={hearwear} alt="HearWear" />
