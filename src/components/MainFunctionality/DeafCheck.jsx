@@ -36,7 +36,7 @@ const DeafCheck = () => {
       <h1 className="text-white text-2xl md:text-4xl py-5 mt-2 font-black font-[Arial] md:ml-5">
         Questions to detect Level of Partial Deafness
       </h1>
-      <div className="md:ml-20 py-5 flex justify-center items-center">
+      <div className="md:ml-20 py-5 flex md:justify-start justify-center items-center">
         <Link to="/start" className="text-lg bg-white px-5 py-3 rounded-full">
           Skip if already done
         </Link>
