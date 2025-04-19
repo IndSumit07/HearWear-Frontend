@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Globe from "vanta/dist/vanta.globe.min";
+import Transcript from "./Transcript";
 
 const Start = () => {
   const [isMicOn, setIsMicOn] = useState(false);
@@ -63,7 +64,7 @@ const Start = () => {
 
   return (
     <div
-      className="w-full h-screen flex justify-center items-center flex-col gap-5"
+      className="w-full h-auto min-h-screen flex justify-center items-center flex-col gap-20 py-32"
       ref={myRef}>
       <div className="inset-0 top-0 left-0 absolute bg-black/60"></div>
       <button
@@ -71,6 +72,7 @@ const Start = () => {
         className="bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 text-2xl md:text-3xl font-bold text-white rounded-full py-16 px-5 transition-all duration-300 hover:scale-95">
         CLICK HERE TO START <br /> HEAR AID
       </button>
+      <Transcript />
       <div className="z-50 flex md:flex-row flex-col gap-5 justify-center items-center py-10">
         <h1 className=" text-2xl md:text-3xl text-white">
           Language Translation

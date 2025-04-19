@@ -45,8 +45,10 @@ const Transcript = () => {
   };
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">Live English Subtitles</h1>
+    <div className="p-4 w-[300px] mx-auto z-50 bg-gradient-to-l from-purple-500 via-pink-600 to-blue-500 rounded-xl">
+      <h1 className="text-xl text-white font-bold mb-4">
+        Live English Subtitles
+      </h1>
       <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300">
         <p>{transcript}</p>
       </div>
