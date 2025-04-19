@@ -23,11 +23,11 @@ const QuestionCard = ({ props }) => {
   };
 
   return (
-    <div className="px-20 py-5">
-      <p className="text-2xl text-white">
+    <div className="md:px-20 py-5">
+      <p className="text-xl md:text-2xl text-white">
         Q{props.id}. Can you hear this sound?
       </p>
-      <div className="flex justify-start items-center gap-5 py-5 px-9">
+      <div className="flex justify-start items-center gap-5 py-5 md:px-9">
         <i
           onClick={handlePlayPause}
           className={`text-6xl ${
@@ -38,7 +38,7 @@ const QuestionCard = ({ props }) => {
         <audio ref={audioRef} src={props.audio} typeof="audio/mp3" />
         <div className="h-1 bg-white w-[300px]"></div>
       </div>
-      <div className="flex justify-start items-center gap-10 px-32">
+      <div className="flex justify-center md:justify-start items-center gap-10 md:px-32 ">
         <div
           onClick={() => toggleOption("Yes")}
           className={`text-black ${

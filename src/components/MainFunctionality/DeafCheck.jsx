@@ -31,12 +31,12 @@ const DeafCheck = () => {
     },
   ];
   return (
-    <div className="w-full min-h-screen h-auto bg-gradient-to-l from-[#17174a] to to-[#4b025d] md:py-20 md:px-40">
+    <div className="w-full min-h-screen h-auto bg-gradient-to-l from-[#17174a] to to-[#4b025d] md:py-20 md:px-40 px-5 py-10 placeholder-opacity-100">
       <img className="w-[300px]" src={hearwear} alt="HearWear" />
-      <h1 className="text-white text-4xl py-5 mt-2 font-black font-[Arial] ml-5">
+      <h1 className="text-white text-2xl md:text-4xl py-5 mt-2 font-black font-[Arial] md:ml-5">
         Questions to detect Level of Partial Deafness
       </h1>
-      <div className="ml-20 py-5">
+      <div className="md:ml-20 py-5 flex justify-center items-center">
         <Link to="/start" className="text-lg bg-white px-5 py-3 rounded-full">
           Skip if already done
         </Link>
