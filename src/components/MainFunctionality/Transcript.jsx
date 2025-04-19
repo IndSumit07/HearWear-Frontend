@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 const Transcript = ({ isOn, isMicOn }) => {
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef(null);
-  const isListeningRef = useRef(false); // Track listening state
+  const isListeningRef = useRef(false);
 
   useEffect(() => {
     const SpeechRecognition =
@@ -21,6 +21,7 @@ const Transcript = ({ isOn, isMicOn }) => {
     recognition.onresult = (event) => {
       const current = event.resultIndex;
       const result = event.results[current][0].transcript;
+      console.log("Heard:", result);
       setTranscript((prev) => prev + " " + result);
     };
 
@@ -29,7 +30,6 @@ const Transcript = ({ isOn, isMicOn }) => {
     };
 
     recognition.onend = () => {
-      // Automatically restart if still supposed to be listening
       if (isListeningRef.current) {
         recognition.start();
       }
@@ -44,14 +44,22 @@ const Transcript = ({ isOn, isMicOn }) => {
   }, []);
 
   const startListening = () => {
-    isListeningRef.current = true;
-    recognitionRef.current?.start();
+    if (!recognitionRef.current) return;
+    try {
+      recognitionRef.current.start();
+      isListeningRef.current = true;
+    } catch (e) {
+      console.warn("Start failed:", e.message);
+    }
   };
 
   const stopListening = () => {
-    isListeningRef.current = false;
-    recognitionRef.current?.stop();
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      isListeningRef.current = false;
+    }
   };
+
   useEffect(() => {
     if (isOn && isMicOn) {
       startListening();
@@ -65,10 +73,9 @@ const Transcript = ({ isOn, isMicOn }) => {
       <h1 className="text-xl text-white font-bold mb-4">
         Live English Transcript
       </h1>
-      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300 ">
+      <div className="bg-gray-100 p-4 rounded h-48 overflow-y-auto border border-gray-300">
         <p>{transcript}</p>
       </div>
-      <div className="mt-4 flex gap-2"></div>
     </div>
   );
 };
