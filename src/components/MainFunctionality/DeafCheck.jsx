@@ -78,7 +78,9 @@ const DeafCheck = () => {
 
   return (
     <div className="w-full min-h-screen h-auto bg-gradient-to-l from-[#17174a] to-[#4b025d] md:py-20 md:px-40 px-5 py-10">
-      <img className="w-[300px]" src={hearwear} alt="HearWear" />
+      <Link to="/">
+        <img className="w-[300px]" src={hearwear} alt="HearWear" />
+      </Link>
 
       <h1 className="text-white text-2xl md:text-4xl py-5 mt-2 font-black font-[Arial] md:ml-5">
         Questions to detect Level of Partial Deafness
